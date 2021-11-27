@@ -14,14 +14,15 @@ Create Heroku app using deploy button:
 Repo and local setup:
 
 - Create a new repo using this template https://github.com/andreif/proj-template and clone locally
-- Start Postgres app or container.
+- Change the deploy URL above in this readme.
+- Start Postgres app/container.
 - `make setup`
 - `make server` to run local Django server
 
 Heroku:
 
 - E.g.: `APP=myapp ADMIN=changeme make heroku-setup`
-- In web UI, set deploy method to `github` and enable automatic deploys.
+- In web UI, set deploy method to `GitHub` and enable automatic deploys.
 - `git push github main` or `git push heroku main`
 - `make heroku-user`
 
