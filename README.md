@@ -88,15 +88,16 @@ $ gh repo create --confirm --public 0mgs/demo --template https://github.com/andr
 # Branch 'main' set up to track remote branch 'main' from 'origin'.
 # Already on 'main'
 # ✓ Initialized repository in "demo"
+
+$ cd demo
 ```
 
 ## Heroku CLI
 
-```
+```sh
 $ brew tap heroku/brew 
 $ brew install heroku
 $ heroku auth:login
+
 # ...
-
-
 ```
