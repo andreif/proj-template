@@ -2,6 +2,10 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/andreif/proj-template)
 
+- Specify `DJANGO_ALLOWED_HOSTS` env var matching your app name.
+- Point Deployment method to your GitHub repo.
+- Commit `Pipfile.lock`.
+
 ## Setting up a new project
 
 - Create a new repo using this template https://github.com/andreif/proj-template and clone locally

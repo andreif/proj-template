@@ -11,7 +11,10 @@
     "DJANGO_SETTINGS_MODULE": {
       "value": "app.settings"
     },
-    "DJANGO_ALLOWED_HOSTS": "FIXME!",
+    "DJANGO_ALLOWED_HOSTS": {
+      "value": "proj-template.herokuapp.com",
+      "description": "FIXME: use the same app name as you have chosen above."
+    },
     "DJANGO_SECRET_KEY": {
       "generator": "secret"
     },
