@@ -54,14 +54,17 @@ heroku stack:set heroku-20
 ```
 
 
-## From zero to hero with Heroku CLI and GitHub CLI
+## From zero to hero with GitHub CLI
+
+Git setup
+
+```
+$ git config --global init.defaultBranch main
+```
+
+On macOS
 
 ```sh
-$ brew tap heroku/brew 
-$ brew install heroku
-$ heroku auth:login
-# ...
-
 $ brew install gh
 $ gh auth login
 
@@ -70,12 +73,6 @@ $ gh auth login
 # ✓ Authentication complete. Press Enter to continue...
 
 # ✓ Logged in as andreif
-```
-
-Creating a new repo from proj-template
-
-```sh
-$ git config --global init.defaultBranch main
 
 $ gh repo create --confirm --public 0mgs/demo --template https://github.com/andreif/proj-template
 
@@ -91,4 +88,15 @@ $ gh repo create --confirm --public 0mgs/demo --template https://github.com/andr
 # Branch 'main' set up to track remote branch 'main' from 'origin'.
 # Already on 'main'
 # ✓ Initialized repository in "demo"
+```
+
+## Heroku CLI
+
+```
+$ brew tap heroku/brew 
+$ brew install heroku
+$ heroku auth:login
+# ...
+
+
 ```
