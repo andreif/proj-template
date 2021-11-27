@@ -4,8 +4,9 @@
 
 This template is using https://github.com/andreif/proj for opinionated Django setup.
 
-Create Heroku app using deploy button:
+Create Heroku app using the deploy button:
 
+- Connect your GitHub account to Heroku if the new repo is private.
 - Specify `DJANGO_ALLOWED_HOSTS` env var matching your app name in the form shown after pressing the button above.
 - Point Deployment method to your GitHub repo and enable automatic deploys.
 - Use the web UI to run `python src/manage.py createsuperuser`.
@@ -15,7 +16,7 @@ Create Heroku app using deploy button:
 Repo and local setup:
 
 - Create a new repo using this template https://github.com/andreif/proj-template and clone locally
-- Change the deploy URL above in this readme if your repo is public.
+- Change the deploy URL above in this readme.
 - Start Postgres app/container.
 - `make setup`
 - `make server` to run local Django server

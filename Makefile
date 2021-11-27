@@ -2,6 +2,7 @@ include local.env
 
 PY = 3.10.0  # TODO: read from runtime.txt
 PROJECT := app
+DATABASE := proj-template
 SOURCE_COMMIT := $(shell git rev-parse HEAD)
 ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
@@ -57,7 +58,7 @@ setup:
 	pyenv local $(PY)
 	pip install -U pip pipenv
 	pipenv install --dev
-	createdb $(PROJECT) || true
+	createdb $(DATABASE) || true
 	test -e .env || ln -s local.env .env
 	make manage migrate
 	make manage createsuperuser
@@ -66,7 +67,7 @@ setup:
 .PHONY: clean
 clean:
 	pipenv --rm || true
-	dropdb $(PROJECT)
+	dropdb $(DATABASE)
 
 
 .PHONY: venv
