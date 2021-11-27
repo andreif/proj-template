@@ -23,7 +23,9 @@
       "description": "Use a secret admin URL path, e.g. `mydjangoadmin`"
     },
     "DISABLE_COLLECTSTATIC": {
-      "value": ""
+      "value": "",
+      "required": false,
+      "description": "Set any value to disable collecting static files."
     }
   },
   "success_url": "/"
