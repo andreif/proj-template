@@ -6,7 +6,7 @@ This template is using https://github.com/andreif/proj for opinionated Django se
 
 Create Heroku app using deploy button:
 
-- Specify `DJANGO_ALLOWED_HOSTS` env var matching your app name.
+- Specify `DJANGO_ALLOWED_HOSTS` env var matching your app name in the form shown after pressing the button above.
 - Point Deployment method to your GitHub repo and enable automatic deploys.
 - Use the web UI to run `python src/manage.py createsuperuser`.
 
