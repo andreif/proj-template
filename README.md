@@ -62,3 +62,36 @@ heroku stack:set heroku-20
 ```
 pipenv install -e git+https://github.com/andreif/proj.git#egg=proj
 ```
+
+
+## GitHub CLI
+
+```
+$ brew install gh
+$ gh auth login
+
+! First copy your one-time code: 1234-5678
+- Press Enter to open github.com in your browser...
+✓ Authentication complete. Press Enter to continue...
+
+✓ Logged in as andreif
+```
+
+```
+$ git config --global init.defaultBranch main
+
+$ gh repo create --confirm --public 0mgs/demo --template https://github.com/andreif/proj-template
+
+✓ Created repository 0mgs/demo on GitHub
+Initialized empty Git repository in /Users/name/demo/.git/
+remote: Enumerating objects: 30, done.
+remote: Counting objects: 100% (30/30), done.
+remote: Compressing objects: 100% (24/24), done.
+remote: Total 30 (delta 0), reused 18 (delta 0), pack-reused 0
+Unpacking objects: 100% (30/30), 5.72 KiB | 279.00 KiB/s, done.
+From https://github.com/0mgs/demo
+ * [new branch]      main       -> origin/main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
+Already on 'main'
+✓ Initialized repository in "demo"
+```
