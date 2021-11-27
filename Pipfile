@@ -5,7 +5,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-proj = {editable = true,git = "https://github.com/andreif/proj.git",ref = "48718499a971444412305ff3960ed832a88d5fbd"}
+proj = {editable = true,git = "https://github.com/andreif/proj.git",ref = "c62cacd8a2c8c2a9551fe112222e3f4f08ec0c92"}
 #proj = {editable = true,path = "../proj-git"}
 
 [requires]
