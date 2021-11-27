@@ -7,7 +7,7 @@ Create Heroku app using deploy button:
 - Specify `DJANGO_ALLOWED_HOSTS` env var matching your app name.
 - Point Deployment method to your GitHub repo and enable automatic deploys.
 - Commit `Pipfile.lock`.
-- `make heroku-user`
+- Run `make heroku-user` locally or use the web UI to run `python src/manage.py createsuperuser`.
 
 ## Setting up a new project manually
 
