@@ -54,9 +54,14 @@ heroku stack:set heroku-20
 ```
 
 
-## GitHub CLI
+## From zero to hero with Heroku CLI and GitHub CLI
 
 ```sh
+$ brew tap heroku/brew 
+$ brew install heroku
+$ heroku auth:login
+# ...
+
 $ brew install gh
 $ gh auth login
 
@@ -66,6 +71,8 @@ $ gh auth login
 
 # ✓ Logged in as andreif
 ```
+
+Creating a new repo from proj-template
 
 ```sh
 $ git config --global init.defaultBranch main
