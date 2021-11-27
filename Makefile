@@ -2,7 +2,6 @@ include local.env
 
 PY = 3.10.0  # TODO: read from runtime.txt
 PROJECT := app
-HEROKU_HOSTNAME := example.com
 SOURCE_COMMIT := $(shell git rev-parse HEAD)
 ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
@@ -53,6 +52,7 @@ requirements:
 
 .PHONY: setup
 setup:
+	test $(PY)
 	pyenv install --skip-existing $(PY)
 	pyenv local $(PY)
 	pip install -U pip pipenv
@@ -81,7 +81,7 @@ version:
 
 .PHONY: deploy
 deploy:
-	git push heroku master $(GIT_ARGS) 2>&1 | tee /dev/tty | grep "Verifying deploy... done."
+	git push heroku main $(GIT_ARGS) 2>&1 | tee /dev/tty | grep "Verifying deploy... done."
 	make version
 	heroku logs
 
@@ -93,6 +93,10 @@ deploy-force:
 
 .PHONY: heroku-setup
 heroku-setup:
+	test $(APP)
+	test $(ADMIN)
+
+	heroku git:remote --app $(APP)  # or git remote add heroku https://git.heroku.com/$(APP).git
 	heroku addons:add heroku-postgresql:hobby-dev
 	heroku addons:add memcachier:dev
 	heroku addons:add sentry:f1
@@ -100,9 +104,10 @@ heroku-setup:
 	heroku addons:create scheduler:standard
 
 	heroku config:set DJANGO_SETTINGS_MODULE=app.settings
-	heroku config:set DJANGO_ALLOWED_HOSTS=${HEROKU_HOSTNAME}
-#	heroku config:set DJANGO_SECRET_KEY=[random string of choice]  # TODO: generate
+	heroku config:set DJANGO_ALLOWED_HOSTS=$(APP).herokuapp.com
+	heroku config:set DJANGO_ADMIN_URL="$(ADMIN)"
 	heroku config:set DISABLE_COLLECTSTATIC=
+	heroku config:set DJANGO_SECRET_KEY="$(openssl rand -base64 32)"
 
 
 .PHONY: heroku-user
