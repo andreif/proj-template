@@ -45,22 +45,12 @@ heroku labs:enable metrics-beta
 heroku labs
 ```
 
-### Upgrade requirements
+### Updating requirements and stack
 
 ```
 make update-dependencies
-```
 
-### Stack update
-
-```
 heroku stack:set heroku-20
-```
-
-### From scratch
-
-```
-pipenv install -e git+https://github.com/andreif/proj.git#egg=proj
 ```
 
 
