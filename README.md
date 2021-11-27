@@ -66,7 +66,7 @@ pipenv install -e git+https://github.com/andreif/proj.git#egg=proj
 
 ## GitHub CLI
 
-```
+```sh
 $ brew install gh
 $ gh auth login
 
@@ -77,7 +77,7 @@ $ gh auth login
 # ✓ Logged in as andreif
 ```
 
-```
+```sh
 $ git config --global init.defaultBranch main
 
 $ gh repo create --confirm --public 0mgs/demo --template https://github.com/andreif/proj-template
