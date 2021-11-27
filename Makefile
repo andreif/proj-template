@@ -91,8 +91,8 @@ deploy-force:
 	GIT_ARGS=--force make deploy
 
 
-.PHONY: setup-heroku
-setup-heroku:
+.PHONY: heroku-setup
+heroku-setup:
 	heroku addons:add heroku-postgresql:hobby-dev
 	heroku addons:add memcachier:dev
 	heroku addons:add sentry:f1
@@ -103,6 +103,11 @@ setup-heroku:
 	heroku config:set DJANGO_ALLOWED_HOSTS=${HEROKU_HOSTNAME}
 #	heroku config:set DJANGO_SECRET_KEY=[random string of choice]  # TODO: generate
 	heroku config:set DISABLE_COLLECTSTATIC=
+
+
+.PHONY: heroku-user
+heroku-user:
+	heroku run python src/manage.py createsuperuser
 
 
 .PHONY: update-dependencies

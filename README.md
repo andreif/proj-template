@@ -2,33 +2,38 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/andreif/proj-template)
 
+Create Heroku app using deploy button:
+
 - Specify `DJANGO_ALLOWED_HOSTS` env var matching your app name.
 - Point Deployment method to your GitHub repo and enable automatic deploys.
 - Commit `Pipfile.lock`.
+- `make heroku-user`
 
-## Setting up a new project
+## Setting up a new project manually
+
+Repo and local setup:
 
 - Create a new repo using this template https://github.com/andreif/proj-template and clone locally
 - Change admin URL in `src/app/urls.py` because the one from template is well-known and the admin URL shouls be secret.
 - Start Postgres app or container.
 - `make setup`
-- `make server`
+- `make server` to run local Django server
 
-Heroku
+Heroku:
 
-- create heroku app
-- heroku git:remote -a myapp
-   - or: git remote add heroku https://git.heroku.com/{myapp}.git
+- create heroku app: `heroku create myapp`
+- `heroku git:remote -a myapp`
+   - or: `git remote add heroku https://git.heroku.com/{myapp}.git`
 - set deploy method to `github`
 - enable automatic deploys
-- make setup-heroku
+- make heroku-setup
 
-Deploy
+Deploy:
 
 ```
 git push github main  # or:
 git push heroku main 
-heroku run python src/manage.py createsuperuser
+make heroku-user
 ```
 
 Troubleshooting
