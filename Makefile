@@ -118,5 +118,5 @@ heroku-user:
 
 .PHONY: update-dependencies
 update-dependencies:
-	rm Pipenv.lock
+	rm Pipfile.lock
 	pipenv install
