@@ -20,7 +20,7 @@
     },
     "DJANGO_ADMIN_URL": {
       "value": "",
-      "description": "Use a secret admin URL path"
+      "description": "Use a secret admin URL path, e.g. `mydjangoadmin`"
     },
     "DISABLE_COLLECTSTATIC": {
       "value": ""
