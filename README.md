@@ -3,7 +3,7 @@
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/andreif/proj-template)
 
 - Specify `DJANGO_ALLOWED_HOSTS` env var matching your app name.
-- Point Deployment method to your GitHub repo.
+- Point Deployment method to your GitHub repo and enable automatic deploys.
 - Commit `Pipfile.lock`.
 
 ## Setting up a new project
