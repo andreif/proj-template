@@ -18,8 +18,12 @@
     "DJANGO_SECRET_KEY": {
       "generator": "secret"
     },
+    "DJANGO_ADMIN_URL": {
+      "value": "",
+      "description": "Use a secret admin URL path"
+    },
     "DISABLE_COLLECTSTATIC": {
-      "value": "1"
+      "value": ""
     }
   },
   "success_url": "/"

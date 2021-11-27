@@ -102,7 +102,7 @@ setup-heroku:
 	heroku config:set DJANGO_SETTINGS_MODULE=app.settings
 	heroku config:set DJANGO_ALLOWED_HOSTS=${HEROKU_HOSTNAME}
 #	heroku config:set DJANGO_SECRET_KEY=[random string of choice]  # TODO: generate
-	heroku config:set DISABLE_COLLECTSTATIC=1
+	heroku config:set DISABLE_COLLECTSTATIC=
 
 
 .PHONY: update-dependencies
