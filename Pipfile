@@ -12,4 +12,4 @@ proj = {editable = true,git = "https://github.com/andreif/proj.git",ref = "102f8
 python_version = "3.10"
 
 [pipenv]
-#allow_prereleases = true
+allow_prereleases = true
