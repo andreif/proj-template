@@ -2,6 +2,8 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/andreif/proj-template)
 
+This template is using https://github.com/andreif/proj for opinionated Django setup.
+
 Create Heroku app using deploy button:
 
 - Specify `DJANGO_ALLOWED_HOSTS` env var matching your app name.
