@@ -32,7 +32,7 @@ logs:
 .PHONY: manage
 manage:
 	SOURCE_COMMIT=$(SOURCE_COMMIT) \
-	pipenv run src/manage.py $(ARGS)
+	pipenv run python src/manage.py $(ARGS)
 #env $(shell cat local.env | xargs) \
 
 
