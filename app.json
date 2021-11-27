@@ -1,0 +1,23 @@
+{
+  "repository": "https://github.com/andreif/proj-template",
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "memcachier:dev",
+    "sentry:f1",
+    "newrelic:wayne",
+    "scheduler:standard"
+  ],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": {
+      "value": "app.settings"
+    },
+    "DJANGO_ALLOWED_HOSTS": "FIXME!",
+    "DJANGO_SECRET_KEY": {
+      "generator": "secret"
+    },
+    "DISABLE_COLLECTSTATIC": {
+      "value": "1"
+    }
+  },
+  "success_url": "/"
+}

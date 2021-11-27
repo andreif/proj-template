@@ -58,3 +58,5 @@ heroku stack:set heroku-20
 ```
 pipenv install -e git+https://github.com/andreif/proj.git#egg=proj
 ```
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/andreif/proj-template)
