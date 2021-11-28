@@ -2,7 +2,7 @@ include local.env
 
 PY = 3.10.0  # TODO: read from runtime.txt
 PROJECT := app
-DATABASE := proj-template
+DATABASE := proj-template  # TODO: read from local.env
 SOURCE_COMMIT := $(shell git rev-parse HEAD)
 ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
@@ -40,6 +40,12 @@ manage:
 .PHONY: server
 server:
 	make manage runserver
+
+
+.PHONY: migrations
+migrations:
+	make manage makemigrations
+	make manage migrate
 
 
 .PHONY: task
