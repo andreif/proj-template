@@ -5,5 +5,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index_view, name='index'),
-    path(settings.DJANGO_ADMIN_URL, admin.site.urls),
+    path(settings.ADMIN_URL, admin.site.urls),
 ]
