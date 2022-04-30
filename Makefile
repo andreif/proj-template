@@ -2,10 +2,8 @@ include local.env
 
 PY = $(shell cut -d'-' -f2 < runtime.txt)
 PROJECT := app
-HEROKU_APP := change-me
 # TODO: use regex:
-DATABASE := $(shell cat local.env | grep DATABASE_URL | cut -d'/' -f4 | head -n1)
-ADMIN := $(shell cat local.env | grep DJANGO_ADMIN_URL | cut -d'=' -f2)
+DATABASE := $(shell . local.env && echo ${DATABASE_URL} | cut -d'/' -f4 | head -n1)
 SOURCE_COMMIT := $(shell git rev-parse HEAD)
 ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
@@ -25,9 +23,7 @@ check_env:
 	@test -n "${PROJECT}"
 	@test -n "${SOURCE_COMMIT}"
 	@test -n "${DATABASE}"
-	@test -n "${HEROKU_APP}"
-	@test -n "${ADMIN}"
-	@which createdb dropdb pg_config
+	@which createdb dropdb pg_config > /dev/null || echo "createdb dropdb pg_config not found."
 
 
 .PHONY: build
@@ -111,18 +107,22 @@ deploy-force:
 	GIT_ARGS=--force make deploy
 
 
-.PHONY: heroku-setup
+heroku-create:
+	@test -n "${APP}" || (echo "Error: Run as APP=my-app-name make heroku-create" >&2 && exit 1)
+	heroku git:remote --app ${APP}  # or git remote add heroku https://git.heroku.com/${APP}.git
+	heroku config:set DJANGO_ALLOWED_HOSTS=${APP}.herokuapp.com
+
+
 heroku-setup: check_env
-	heroku git:remote --app ${HEROKU_APP}  # or git remote add heroku https://git.heroku.com/${HEROKU_APP}.git
 	heroku addons:add heroku-postgresql:hobby-dev
 	heroku addons:add memcachier:dev
 	heroku addons:add sentry:f1
 	heroku addons:add newrelic:wayne
 	heroku addons:create scheduler:standard
 
-	heroku config:set DJANGO_SETTINGS_MODULE=app.settings
-	heroku config:set DJANGO_ALLOWED_HOSTS=${HEROKU_APP}.herokuapp.com
-	heroku config:set DJANGO_ADMIN_URL="${ADMIN}"
+	. local.env && \
+	heroku config:set DJANGO_SETTINGS_MODULE="${DJANGO_SETTINGS_MODULE}" && \
+	heroku config:set DJANGO_ADMIN_URL="${DJANGO_ADMIN_URL}"
 	heroku config:set DISABLE_COLLECTSTATIC=
 	heroku config:set DJANGO_SECRET_KEY="$(shell openssl rand -base64 32)"
 
