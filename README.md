@@ -13,6 +13,22 @@ Create Heroku app using the deploy button:
 
 ## Setting up a new project manually
 
+Pre-requisites:
+
+```sh
+brew install libpq
+cd /usr/local/bin && export PG_BIN=/Applications/Postgres.app/Contents/Versions/latest/bin
+sudo ln -s ${PG_BIN}/createdb
+sudo ln -s ${PG_BIN}/dropdb
+sudo ln -s ${PG_BIN}/pg_config
+
+brew install libmemcached
+export CPPFLAGS="-I/opt/homebrew/include"
+export PIPENV_VENV_IN_PROJECT=1
+```
+Add `127.0.0.1 postgres` to `/etc/hosts`.
+Add the env vars to Makefile run configuration template in PyCharm.
+
 Repo and local setup:
 
 - Create a new repo using this template https://github.com/andreif/proj-template and clone locally

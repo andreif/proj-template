@@ -1,8 +1,11 @@
 include local.env
 
-PY = 3.10.0  # TODO: read from runtime.txt
+PY = $(shell cut -d'-' -f2 < runtime.txt)
 PROJECT := app
-DATABASE := proj-template  # TODO: read from local.env
+HEROKU_APP := change-me
+# TODO: use regex:
+DATABASE := $(shell cat local.env | grep DATABASE_URL | cut -d'/' -f4 | head -n1)
+ADMIN := $(shell cat local.env | grep DJANGO_ADMIN_URL | cut -d'=' -f2)
 SOURCE_COMMIT := $(shell git rev-parse HEAD)
 ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
@@ -17,9 +20,19 @@ help: Makefile
 	@echo
 
 
+check_env:
+	@test -n "${PY}"
+	@test -n "${PROJECT}"
+	@test -n "${SOURCE_COMMIT}"
+	@test -n "${DATABASE}"
+	@test -n "${HEROKU_APP}"
+	@test -n "${ADMIN}"
+	@which createdb dropdb pg_config
+
+
 .PHONY: build
-build:
-	docker-compose build --build-arg SOURCE_COMMIT=$(SOURCE_COMMIT) app
+build: check_env
+	docker-compose build --build-arg SOURCE_COMMIT=${SOURCE_COMMIT} app
 	docker-compose up -d app
 	docker-compose logs -f --tail=200 app
 
@@ -30,10 +43,10 @@ logs:
 
 
 .PHONY: manage
-manage:
-	SOURCE_COMMIT=$(SOURCE_COMMIT) \
+manage: check_env
+	SOURCE_COMMIT=${SOURCE_COMMIT} \
 	PIPENV_IGNORE_VIRTUALENVS=1 \
-	pipenv run python src/manage.py $(ARGS)
+	pipenv run python src/manage.py ${ARGS}
 #env $(shell cat local.env | xargs) \
 
 
@@ -50,7 +63,7 @@ migrations:
 
 .PHONY: task
 task:
-	pipenv run python src/$(PROJECT)/tasks.py $(ARGS)
+	pipenv run python src/${PROJECT}/tasks.py ${ARGS}
 
 
 .PHONY: requirements
@@ -59,22 +72,21 @@ requirements:
 
 
 .PHONY: setup
-setup:
-	test $(PY)
-	pyenv install --skip-existing $(PY)
-	pyenv local $(PY)
+setup: check_env
+	pyenv install --skip-existing ${PY}
+	pyenv local ${PY}
 	pip install -U pip pipenv
 	pipenv install --dev
-	createdb $(DATABASE) || true
+	createdb ${DATABASE} || true
 	test -e .env || ln -s local.env .env
 	make manage migrate
 	make manage createsuperuser
 
 
 .PHONY: clean
-clean:
+clean: check_env
 	pipenv --rm || true
-	dropdb $(DATABASE)
+	dropdb ${DATABASE}
 
 
 .PHONY: venv
@@ -89,7 +101,7 @@ version:
 
 .PHONY: deploy
 deploy:
-	git push heroku main $(GIT_ARGS) 2>&1 | tee /dev/tty | grep "Verifying deploy... done."
+	git push heroku main ${GIT_ARGS} 2>&1 | tee /dev/tty | grep "Verifying deploy... done."
 	make version
 	heroku logs
 
@@ -100,11 +112,8 @@ deploy-force:
 
 
 .PHONY: heroku-setup
-heroku-setup:
-	test $(APP)
-	test $(ADMIN)
-
-	heroku git:remote --app $(APP)  # or git remote add heroku https://git.heroku.com/$(APP).git
+heroku-setup: check_env
+	heroku git:remote --app ${HEROKU_APP}  # or git remote add heroku https://git.heroku.com/${HEROKU_APP}.git
 	heroku addons:add heroku-postgresql:hobby-dev
 	heroku addons:add memcachier:dev
 	heroku addons:add sentry:f1
@@ -112,10 +121,10 @@ heroku-setup:
 	heroku addons:create scheduler:standard
 
 	heroku config:set DJANGO_SETTINGS_MODULE=app.settings
-	heroku config:set DJANGO_ALLOWED_HOSTS=$(APP).herokuapp.com
-	heroku config:set DJANGO_ADMIN_URL="$(ADMIN)"
+	heroku config:set DJANGO_ALLOWED_HOSTS=${HEROKU_APP}.herokuapp.com
+	heroku config:set DJANGO_ADMIN_URL="${ADMIN}"
 	heroku config:set DISABLE_COLLECTSTATIC=
-	heroku config:set DJANGO_SECRET_KEY="$(openssl rand -base64 32)"
+	heroku config:set DJANGO_SECRET_KEY="$(shell openssl rand -base64 32)"
 
 
 .PHONY: heroku-user
@@ -127,3 +136,9 @@ heroku-user:
 update-dependencies:
 	rm Pipfile.lock
 	pipenv install
+
+podman:
+	podman machine stop podman-machine-default || true
+	podman machine rm podman-machine-default --force || true
+	podman machine init -v "$(shell pwd):$(shell pwd)"
+	podman machine start
