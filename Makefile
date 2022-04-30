@@ -1,12 +1,13 @@
 include local.env
 
-PY = $(shell cut -d'-' -f2 < runtime.txt)
+PY := $(shell cut -d'-' -f2 < runtime.txt)
 PROJECT := app
 # TODO: use regex:
 DATABASE := $(shell . local.env && echo ${DATABASE_URL} | cut -d'/' -f4 | head -n1)
 SOURCE_COMMIT := $(shell git rev-parse HEAD)
 ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-$(eval $(ARGS):;@:)
+$(eval ${ARGS}:;@:)
+RUN := docker-compose run --rm app
 
 .DEFAULT_GOAL := help
 
