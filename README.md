@@ -17,7 +17,7 @@ Pre-requisites:
 
 ```sh
 brew install libpq
-cd /usr/local/bin && export PG_BIN=/Applications/Postgres.app/Contents/Versions/latest/bin
+
 sudo ln -s ${PG_BIN}/createdb
 sudo ln -s ${PG_BIN}/dropdb
 sudo ln -s ${PG_BIN}/pg_config
@@ -40,7 +40,7 @@ Repo and local setup:
 
 Heroku:
 
-- E.g.: `APP=myapp ADMIN=changeme make heroku-setup`
+- E.g.: `APP=my-heroku-app make heroku-create; make heroku-setup`
 - In web UI, set deploy method to `GitHub` and enable automatic deploys.
 - `git push github main` or `git push heroku main`
 - `make heroku-user`

@@ -108,12 +108,14 @@ deploy-force:
 	GIT_ARGS=--force make deploy
 
 
+.PHONY: heroku-create
 heroku-create:
 	@test -n "${APP}" || (echo "Error: Run as APP=my-app-name make heroku-create" >&2 && exit 1)
 	heroku git:remote --app ${APP}  # or git remote add heroku https://git.heroku.com/${APP}.git
 	heroku config:set DJANGO_ALLOWED_HOSTS=${APP}.herokuapp.com
 
 
+.PHONY: heroku-setup
 heroku-setup: check_env
 	heroku addons:add heroku-postgresql:hobby-dev
 	heroku addons:add memcachier:dev
