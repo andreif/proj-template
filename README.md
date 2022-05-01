@@ -40,6 +40,7 @@ Repo and local setup:
 
 Heroku:
 
+- `brew tap heroku/brew && brew install heroku`
 - E.g.: `APP=my-heroku-app make heroku-create; make heroku-setup`
 - In web UI, set deploy method to `GitHub` and enable automatic deploys.
 - `git push github main` or `git push heroku main`
