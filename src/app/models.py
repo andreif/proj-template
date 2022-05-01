@@ -1,5 +1,4 @@
 from django.db import models as m
-from .urls import urls
 
 
 class _Model(m.Model):
@@ -27,4 +26,5 @@ class _Model(m.Model):
 #
 #     @property
 #     def url(self):
+#         from .urls import urls
 #         return urls.example(example=self)

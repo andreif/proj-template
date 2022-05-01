@@ -93,7 +93,7 @@ venv:
 
 .PHONY: version
 version:
-	heroku config:set SOURCE_COMMIT=$(shell git rev-parse --short master)
+	heroku config:set SOURCE_COMMIT=$(shell git rev-parse --short main)
 
 
 .PHONY: deploy
@@ -111,6 +111,7 @@ deploy-force:
 .PHONY: heroku-create
 heroku-create:
 	@test -n "${APP}" || (echo "Error: Run as APP=my-app-name make heroku-create" >&2 && exit 1)
+	heroku apps:create ${APP} --region eu
 	heroku git:remote --app ${APP}  # or git remote add heroku https://git.heroku.com/${APP}.git
 	heroku config:set DJANGO_ALLOWED_HOSTS=${APP}.herokuapp.com
 
@@ -126,6 +127,7 @@ heroku-setup: check_env
 	. local.env && \
 	heroku config:set DJANGO_SETTINGS_MODULE="${DJANGO_SETTINGS_MODULE}" && \
 	heroku config:set DJANGO_ADMIN_URL="${DJANGO_ADMIN_URL}"
+	# TODO: prompt for admin url
 	heroku config:set DISABLE_COLLECTSTATIC=
 	heroku config:set DJANGO_SECRET_KEY="$(shell openssl rand -base64 32)"
 
