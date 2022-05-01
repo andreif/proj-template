@@ -1,0 +1,29 @@
+version: '3.9'  # needed for PyCharm to work
+services:
+  app:
+    image: "python-${PY}:alpine"
+    working_dir: /app
+    volumes: [.:/app]
+#    privileged: true
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#    restart: no
+#    ports:
+#      - "5432:5432"
+
+#  postgres:
+#    image: postgres:alpine
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - ./data:/var/lib/postgresql/data
+#    environment:
+#      - POSTGRES_DB=${DATABASE}
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U postgres"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
