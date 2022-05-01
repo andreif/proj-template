@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ title or "Untitled" }}{% endblock %}</title>
+    <style>
+        body {
+            background: #2c2c2c;
+            max-width: 800px;
+            margin: 50px auto;
+            color: #a6b7c8;
+        }
+        a {
+            color: #429cfd;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+{% block content %}
+    <h1>proj-template</h1>
+    See <a href="https://github.com/andreif/proj-template">https://github.com/andreif/proj-template</a>
+{% endblock %}
+</body>
+</html>
