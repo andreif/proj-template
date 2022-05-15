@@ -72,6 +72,7 @@ requirements:
 setup: check_env
 	pyenv install --skip-existing ${PY}
 	pyenv local ${PY}
+	pyenv shell --unset || true
 	pip install -U pip pipenv
 	pipenv install --dev
 	createdb ${DATABASE} || true

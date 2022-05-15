@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{{ title or "Untitled" }}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="" />
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="https://">
+    <link href="fav.png" rel="icon" sizes="any" type="image/png">
     <style>
         body {
             background: #2c2c2c;
@@ -15,6 +22,15 @@
             text-decoration: none;
         }
     </style>
+<script>
+function reveal_url() {
+  for (let el of document.getElementsByClassName("reveal-url")) {
+    let x = el.innerText.split("").reverse().join("");
+    el.setAttribute("href", el.getAttribute("href") + x.replaceAll(" ", ""));
+    el.innerText = x;
+  }
+}
+</script>
 </head>
 <body>
 {% block content %}
